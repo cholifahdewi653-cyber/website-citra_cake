@@ -32,6 +32,12 @@ enum OrderStatus {
   COMPLETED
   RETURNED
 }
+enum PaymentStatus {
+  UNPAID
+  WAITING_CONFIRMATION
+  PAID
+  REJECTED
+}
 
 // --- MODELS ---
 
@@ -51,6 +57,9 @@ model User {
   orders    Order[]
   cartItems CartItem[]
   reviews   Review[]
+
+  //Baru
+  cakeCustomizations CakeCustomization[]
 }
 
 model Profile {
@@ -163,8 +172,17 @@ model Order {
   items           OrderItem[]
   logs            OrderLog[]
   
+  // BARU
+   returns         ReturnRequest[]
+
   createdAt       DateTime    @default(now())
   updatedAt       DateTime    @updatedAt
+
+  paymentStatus PaymentStatus @default(UNPAID)
+
+paymentProof String?
+
+paidAt DateTime?
 }
 
 model OrderItem {
@@ -215,4 +233,44 @@ model Review {
 
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
+}
+model CakeCustomization {
+  id             String   @id @default(cuid())
+
+  userId         String
+  user           User @relation(fields: [userId], references: [id])
+
+  cakeType       String
+  size           String
+  flavor         String
+
+  filling        String?
+  topping        String?
+  color          String?
+  writing        String?
+  note           String?
+  image          String?
+
+  estimatedPrice Int?
+
+  status         String @default("PENDING")
+
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+model ReturnRequest {
+  id          String   @id @default(cuid())
+
+  orderId     String
+  order        Order @relation(fields: [orderId], references: [id])
+  
+
+  reason      String
+  description String?
+  image       String?
+
+  status      String @default("PENDING")
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }

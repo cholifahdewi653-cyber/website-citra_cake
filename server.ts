@@ -10,6 +10,9 @@ import categoryRoutes from "./src/routes/categoryRoutes";
 import profileRoutes from "./src/routes/profileRoutes";
 import cartRoutes from "./src/routes/cartRoutes";
 import orderRoutes from "./src/routes/orderRoutes";
+import paymentRoutes from "./src/routes/paymentsRoutes";
+import cakeCustomizationRoutes from "./src/routes/cakeCostumizationRoutes";
+import returnRoutes from "./src/routes/returnRoutes";
 
 const app = express();
 const port = process.env.PORT;
@@ -21,10 +24,13 @@ app.use(cookieParser());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
+app.use("/api/cake-customization", cakeCustomizationRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/profile", profileRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/order", orderRoutes);
+app.use("/api/payment", paymentRoutes);
+app.use("/api/returns", returnRoutes);
 
 async function startServer() {
   try {
