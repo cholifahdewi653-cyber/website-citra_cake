@@ -680,6 +680,197 @@ Endpoint ini untuk mengambil semua pesanan milik user yang sedang login.
 
 ---
 
+## Payments
+Fitur Payment digunakan untuk mengelola proses pembayaran pesanan oleh user dan proses konfirmasi pembayaran oleh admin.
+
+---
+
+## 1. Upload Payments
+
+Endpoint ini digunakan oleh user untuk mengunggah bukti pembayaran setelah melakukan transfer.
+
+- **Method:** `POST`
+- **URL:** `http://localhost:3000/api/payment/:orderId/upload`
+- **Authorization:** httpOnly Cookie **User** (otomatis)
+- **Body (JSON):**
+
+```json
+{
+  "paymentProof": "https://example.com/bukti-transfer.jpg"
+}
+```
+## 2. Get Payments Status
+
+Endpoint ini digunakan oleh user untuk melihat status pembayaran dari suatu pesanan.
+
+- **Method:** `GET`
+- **URL:** `http://localhost:3000/api/payments/:orderId/status`
+- **Authorization:** httpOnly Cookie **User** (otomatis)
+- **Body (JSON):** tidak diperlukan
+
+## 3. Get All Payments (Admin)
+
+Endpoint ini digunakan oleh admin untuk melihat seluruh data pembayaran dari semua pesanan.
+
+- **Method:** `GET`
+- **URL:** `http://localhost:3000/api/payments/admin/all`
+- **Authorization:** httpOnly Cookie **Admin** (otomatis)
+- **Body (JSON):** tidak diperlukan
+
+## 4. Confirm Payment (Admin)
+
+Endpoint ini digunakan oleh admin untuk mengonfirmasi bahwa pembayaran telah diterima.
+
+- **Method:** `PACTH`
+- **URL:** `http://localhost:3000/api/payments/admin/:orderId/confirm`
+- **Authorization:** httpOnly Cookie **Admin** (otomatis)
+- **Body (JSON):** tidak diperlukan
+
+## 5. Reject Payment (Admin)
+
+Endpoint ini digunakan oleh admin untuk menolak pembayaran apabila bukti pembayaran tidak valid.
+
+- **Method:** `PACTH`
+- **URL:** `http://localhost:3000/api/payments/admin/:orderId/reject`
+- **Authorization:** httpOnly Cookie **Admin** (otomatis)
+- **Body (JSON):** tidak diperlukan
+
+# Custom Cake
+
+Fitur Custom Cake digunakan agar pelanggan dapat memesan kue dengan spesifikasi yang diinginkan, kemudian admin memberikan estimasi harga dan memperbarui status pesanan.
+
+---
+
+## 1. Create Custom Cake
+
+Endpoint ini digunakan oleh user untuk membuat pesanan custom cake.
+
+- **Method:** `POST`
+- **URL:** `http://localhost:3000/api/custom-cakes`
+- **Authorization:** httpOnly Cookie **User** (otomatis)
+- **Body (JSON):**
+
+```json
+{
+  "cakeType": "Birthday Cake",
+  "size": "20 cm",
+  "flavor": "Chocolate",
+  "filling": "Cheese",
+  "topping": "Oreo",
+  "color": "Blue",
+  "writing": "Happy Birthday",
+  "note": "Tanpa kacang"
+}
+```
+
+## 2. Get All Custom Cake
+
+Endpoint ini digunakan oleh admin untuk melihat seluruh daftar pesanan custom cake.
+
+- **Method:** `GET`
+- **URL:** `http://localhost:3000/api/custom-cakes`
+- **Authorization:** httpOnly Cookie **Admin** (otomatis)
+
+## 3. Get Custom Cake By ID
+
+Endpoint ini digunakan untuk melihat detail satu pesanan custom cake berdasarkan ID.
+
+- **Method:** `GET`
+- **URL:** `http://localhost:3000/api/custom-cakes/:id`
+
+## 4. Update Custom Cake
+
+Endpoint ini digunakan oleh admin untuk memperbarui status pesanan dan mengisi estimasi harga custom cake.
+
+- **Method:** `PACTH`
+- **URL:** `http://localhost:3000/api/custom-cakes/:id`
+- **Authorization:** httpOnly Cookie **Admin** (otomatis)
+- **Body (JSON):**
+
+```json
+{
+  "status": "APPROVED",
+  "estimatedPrice": 250000
+}
+```
+
+## 5. Delete Custom Cake
+
+Endpoint ini digunakan oleh admin untuk menghapus data pesanan custom cake.
+
+- **Method:** `DELETE`
+- **URL:** `http://localhost:3000/api/custom-cakes/:id`
+
+---
+
+# Return Request
+
+Fitur Return Request digunakan oleh pelanggan untuk mengajukan pengembalian produk apabila pesanan yang diterima rusak atau tidak sesuai.
+
+---
+
+## 1. Create Return Request
+
+Endpoint ini digunakan oleh user untuk membuat permintaan pengembalian produk.
+
+- **Method:** `POST`
+- **URL:** `http://localhost:3000/api/returns`
+- **Authorization:** httpOnly Cookie **User** (otomatis)
+```json
+{
+  "orderId": "ORDER_ID",
+  "reason": "Barang rusak",
+  "description": "Kemasan penyok",
+  "image": "https://example.com/image.jpg"
+}
+```
+
+---
+
+## 2. Get All Return Requests
+
+Endpoint ini digunakan oleh admin untuk melihat seluruh permintaan pengembalian produk.
+
+- **Method:** `GET`
+- **URL:** `http://localhost:3000/api/returns`
+- **Authorization:** httpOnly Cookie **Admin** (otomatis)
+
+---
+
+## 3. Get Return Request By ID
+
+Endpoint ini digunakan untuk melihat detail satu permintaan pengembalian berdasarkan ID.
+
+- **Method:** `GET`
+- **URL:** `http://localhost:3000/api/returns/:id`
+
+---
+
+## 4. Update Return Request
+
+Endpoint ini digunakan oleh admin untuk memperbarui status permintaan pengembalian.
+
+- **Method:** `PATCH`
+- **URL:** `http://localhost:3000/api/returns/:id`
+- **Body (JSON):**
+
+```json
+{
+  "status": "APPROVED"
+}
+```
+
+---
+
+## 5. Delete Return Request
+
+Endpoint ini digunakan oleh admin untuk menghapus data permintaan pengembalian.
+
+- **Method:** `DELETE`
+- **URL:** `http://localhost:3000/api/returns/:id`
+
+---
+
 ### 2. All Orders — Admin (Semua Pesanan)
 
 Endpoint ini untuk mengambil seluruh pesanan dari semua user. Hanya bisa diakses oleh Admin.
