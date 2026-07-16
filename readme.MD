@@ -690,7 +690,7 @@ Fitur Payment digunakan untuk mengelola proses pembayaran pesanan oleh user dan 
 Endpoint ini digunakan oleh user untuk mengunggah bukti pembayaran setelah melakukan transfer.
 
 - **Method:** `POST`
-- **URL:** `http://localhost:3000/api/payment/:orderId/upload`
+- **URL:** `http://localhost:3000/api/payments//upload`
 - **Authorization:** httpOnly Cookie **User** (otomatis)
 - **Body (JSON):**
 
