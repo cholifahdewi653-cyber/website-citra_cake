@@ -40,6 +40,7 @@ const productSchema = z.object({
 });
 
 const formatError = (error: z.ZodError, res: Response) => {
+  console.log("error",error);
   const message = error.issues.map((e: z.ZodIssue) => e.message);
   return res.status(400).json({
     success: false,
@@ -90,6 +91,7 @@ export const getAllProduct = async (req: Request, res: Response) => {
       data: product,
     });
   } catch (error) {
+    console.log("error",error);
     console.error(error);
     return res.status(500).json({
       success: false,
@@ -126,6 +128,7 @@ export const getOneProduct = async (req: Request, res: Response) => {
       data: product,
     });
   } catch (error) {
+    console.log("error",error);
     return res.status(500).json({
       success: false,
       message: "Gagal mengambil data produk",
@@ -172,7 +175,7 @@ export const createProduct = async (req: Request, res: Response) => {
           : req.body.variants
         : [];
     } catch (error) {
-      console.log(error);
+      console.log("error",error);
       return res.status(400).json({
         success: false,
         message: "Format variant tidak valid",
@@ -186,6 +189,7 @@ export const createProduct = async (req: Request, res: Response) => {
           : req.body.sizes
         : [];
     } catch (error) {
+      console.log("error",error);
       return res.status(400).json({
         success: false,
         message: "Format sizes tidak valid",
@@ -248,7 +252,7 @@ export const createProduct = async (req: Request, res: Response) => {
     if (error instanceof z.ZodError) {
       return formatError(error, res);
     }
-    console.log(error);
+    console.log("error",error);
 
     return res.status(500).json({
       success: false,
@@ -301,6 +305,7 @@ export const updateProduct = async (req: Request, res: Response) => {
           : req.body.variants
         : undefined;
     } catch (error) {
+      console.log("error",error);
       return res.status(400).json({
         success: false,
         message: "Format variant tidak valid",
@@ -314,6 +319,7 @@ export const updateProduct = async (req: Request, res: Response) => {
           : req.body.sizes
         : undefined;
     } catch (error) {
+      console.log("error",error);
       return res.status(400).json({
         success: false,
         message: "Format sizes tidak valid",
@@ -421,6 +427,7 @@ export const deleteProduct = async (req: Request, res: Response) => {
       message: "Produk berhasil dihapus",
     });
   } catch (error) {
+    console.log("error",error);
     return res.status(500).json({
       success: false,
       message: "Gagal menghapus produk",
