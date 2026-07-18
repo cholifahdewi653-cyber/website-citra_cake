@@ -214,6 +214,7 @@ export const createProduct = async (req: Request, res: Response) => {
       images: uploaded.map((u) => u.url),
       imageIds: uploaded.map((u) => u.id),
     });
+    console.log("Parsed Product Data:", parsed);
 
     const resolvedVariant = resolveVariant(parsed.variants);
 
@@ -242,6 +243,7 @@ export const createProduct = async (req: Request, res: Response) => {
         sizes: true,
       },
     });
+    console.log("Created Product:", product);
 
     res.status(201).json({
       success: true,
